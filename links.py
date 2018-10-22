@@ -19,7 +19,7 @@ def get_short_link(web_link):
 
 def append_template_to_file(link, linkText, description):
     f=open("content.html", "a+")
-    tempy = Template( '<a href="$linky">$linkyText</a>$descripty</br> \n')
+    tempy = Template( '<a href="$linky">$linkyText</a> - $descripty</br> \n')
     f.write(tempy.substitute(linky=link, linkyText=linkText, descripty=description))
 
 def create_entry():
