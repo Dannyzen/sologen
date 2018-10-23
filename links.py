@@ -19,11 +19,10 @@ url = "https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key="
 headers = {'content-type': 'application/json'}
 
 def get_short_link(web_link):
-    resolve_http_redirect(web_link)
-    payload = {"dynamicLinkInfo":{"dynamicLinkDomain": "tamnews.page.link","link": web_link, "navigationInfo": { "enableForcedRedirect": "1"}, }, "suffix": { "option": "SHORT"}}
+    payload = {"dynamicLinkInfo":{"dynamicLinkDomain": "tamnews.page.link","link": resolve_http_redirect(web_link), "navigationInfo": { "enableForcedRedirect": "1"}, }, "suffix": { "option": "SHORT"}}
     response = requests.post( url+key, data=json.dumps(payload), headers=headers)
     extraction = json.loads(response.text)
-    # print(extraction)
+    print(extraction)
     short_link = extraction['shortLink']
     return short_link
 
