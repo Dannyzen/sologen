@@ -4,9 +4,15 @@ import requests
 import json
 import os
 from string import Template
+import yaml
 
+try:
+    config = yaml.load(file('config.yaml', 'r'))
+except yaml.YAMLError, exc:
+    print "Do you have a config.yaml? If not, check out the README.md for more...", exc
+
+key = config['key']
 url = "https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key="
-key = ""
 headers = {'content-type': 'application/json'}
 
 def get_short_link(web_link):
