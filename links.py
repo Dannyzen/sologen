@@ -28,7 +28,6 @@ def get_short_link(web_link):
     return short_link
 
 def resolve_http_redirect(url, depth=0):
-""" Recursively follow redirects until there isn't a location header """
     if depth > 10:
         raise Exception("Redirected "+depth+" times, giving up.")
     o = urlparse.urlparse(url,allow_fragments=True)
