@@ -18,8 +18,8 @@ key = config['key']
 url = "https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key="
 headers = {'content-type': 'application/json'}
 
-def get_short_link(web_link):
-    payload = {"dynamicLinkInfo":{"dynamicLinkDomain": "tamnews.page.link","link": resolve_http_redirect(web_link), "navigationInfo": { "enableForcedRedirect": "1"}, }, "suffix": { "option": "SHORT"}}
+def get_short_link(webLink):
+    payload = {"dynamicLinkInfo":{"dynamicLinkDomain": "tamnews.page.link","link": resolve_http_redirect(webLink), "navigationInfo": { "enableForcedRedirect": "1"}, }, "suffix": { "option": "SHORT"}}
     response = requests.post( url+key, data=json.dumps(payload), headers=headers)
     extraction = json.loads(response.text)
     # print(extraction) # debug
@@ -48,16 +48,17 @@ def append_template_to_file(link, linkText, description):
     f.write(tempy.substitute(linky=link, linkyText=linkText, descripty=description))
 
 def create_entry():
-    web_link = raw_input('What is the link?: ')
+    webLink = raw_input('What is the link?: ')
     linkText = raw_input('What is the link text?: ')
     description = raw_input('What is the description: ')
     print("Just a sec, making the short link....")
-    short_link = get_short_link(web_link)
+    short_link = get_short_link(webLink)
     append_template_to_file(short_link, linkText, description)
     print("Wrote entry to content.html")
 
-if len(key) < 0:
-    print("Set an API Key")
-else:
-    while True:
-        create_entry()
+if __name__ == '__main__':
+    if len(key) < 0:
+        print("Set an API Key")
+    else:
+        while True:
+            create_entry()
